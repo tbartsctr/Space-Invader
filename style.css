@@ -1,0 +1,67 @@
+.header{
+    border: solid black;
+    text-align: center;
+   
+    
+}
+
+.gameScrn{
+    border: solid blue;
+    height: 70vh;
+    width: 60%;
+    align-items: center;
+    position: relative;
+    
+}
+
+.scoreScrn{
+    border: solid red;
+    height: 120px;
+    width: 60%;
+    align-items: center;
+}
+
+.backgroundImg{
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://insights.som.yale.edu/sites/default/files/styles/max_2600x2600/public/2022-10/space.jpeg?itok=ZYNlzGF7");
+    
+}
+
+h1,h2{
+    color: white;
+}
+
+
+.spaceshipImg{
+    height: 70px;
+    width: 70px;
+    margin-top: 55%;
+    position: absolute;
+    left: 0;
+    
+
+}
+
+#startBtn{
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+}
+
+
+.alienImg{
+    height: 70px;
+    width: 70px;
+    //margin-top: 30%;
+    position: absolute;
+    visibility: hidden;
+    top: -50px;
+
+}
