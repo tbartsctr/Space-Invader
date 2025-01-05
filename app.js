@@ -27,10 +27,87 @@ function moveSpaceShip(event){
     }
 
     spaceShip.style.left = currentLeft + "px";
+    if (!spaceShip.style.top) {
+        spaceShip.style.top = gameScrn.offsetHeight - spaceShip.offsetHeight - 10 + "px"; 
+    }
 
 }
 
 window.addEventListener("keydown", moveSpaceShip);
+
+let score = 0;
+function scoreCounter(){
+    scoreScrn.textContent = `Score: ${score}`;
+}
+
+
+function shootLaser(){
+
+    const laser = document.createElement("div");
+    laser.classList.add("laser");
+    
+    const spaceShipLeft = parseInt(spaceShip.style.left) || 0;
+    const laserStartTop = parseInt(spaceShip.style.top) - 20 || 0;
+    laser.style.left = spaceShipLeft + (spaceShip.offsetWidth / 2 - 2.5) + "px";
+    laser.style.top = laserStartTop + "px";
+    gameScrn.appendChild(laser);
+
+    lasers.push(laser);
+    moveLaser(laser);
+
+}
+
+
+function moveLaser(laser){
+
+    const laserInterval = setInterval(function(){
+        let laserTop = parseInt(laser.style.top) || 0;
+        laserTop -= 10;
+        laser.style.top = laserTop + "px";
+
+        if (laserTop <= 0){
+            clearInterval(laserInterval);
+            laser.remove();
+        }
+
+        const aliens = document.getElementsByClassName("alienImg");
+
+        for (let i = 0; i < aliens.length; i++) {
+            const alien = aliens[i];
+            const alienTop = parseInt(alien.style.top) || 0;
+            const alienLeft = parseInt(alien.style.left) || 0;
+            const alienWidth = alien.offsetWidth;
+            const alienHeight = alien.offsetHeight;
+
+           
+            if (laserTop <= alienTop + alienHeight &&
+                laserTop >= alienTop &&
+                parseInt(laser.style.left) >= alienLeft &&
+                parseInt(laser.style.left) <= alienLeft + alienWidth) {
+                alien.remove();
+                laser.remove();
+                clearInterval(laserInterval);
+                score++;
+
+                updateScore();
+                break;
+    }
+
+}
+    }, 50);
+}
+
+window.addEventListener("keydown", function(event){
+
+    if (event.key === " " && !gameOver) {  
+        shootLaser();
+
+    }
+})
+
+
+
+
 
 
 const startBtn = document.getElementById("startBtn");
@@ -111,6 +188,11 @@ function endGame(alienTop){
         for (let i = aliens.length - 1; i >= 0; i--){
             aliens[i].remove()
         }
+
+        for (let i = lasers.length - 1; i >= 0; i--) {
+            lasers[i].remove();
+        }
+
         alienIntervals.forEach(interval => clearInterval(interval));
         alienIntervals = []
     }

@@ -19,6 +19,9 @@
     height: 120px;
     width: 60%;
     align-items: center;
+    text-align: center;
+    font-size: 40px;
+    color: white
 }
 
 .backgroundImg{
@@ -42,9 +45,10 @@ h1,h2{
 .spaceshipImg{
     height: 70px;
     width: 70px;
-    margin-top: 55%;
-    position: absolute;
-    left: 0;
+    position: absolute;  
+    top: calc(100% - 80px); 
+    left: 50%;  
+    transform: translateX(-50%);
     
 
 }
@@ -59,9 +63,16 @@ h1,h2{
 .alienImg{
     height: 70px;
     width: 70px;
-    //margin-top: 30%;
     position: absolute;
     visibility: hidden;
     top: -50px;
 
+}
+
+.laser{
+    position: absolute;
+    width: 5px;
+    height: 20px;
+    background-color: white;
+    
 }
