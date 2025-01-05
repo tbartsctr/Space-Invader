@@ -36,22 +36,46 @@ const alien = document.getElementsByClassName("alienImg")[0];
 
 function startGame(){
 
-    alien.style.visibility = "visible";
-    alien.style.top = "0px";
-
-    setInterval(fallAlien, 2000);
+    setInterval(createAlien, 2000);
 
 
 }
 
 
-function fallAlien(){
+function createAlien() {
+    const alien = document.createElement("img");  
+    alien.src = "alien.png";  
+    alien.classList.add("alienImg");  
+    gameScrn.appendChild(alien);  
+
+    alien.style.visibility = "visible";  
+    alien.style.left = Math.random() * (gameScrn.offsetWidth - 70) + "px";  
+    alien.style.top = "0px";  
+
+    fallAlien(alien);
+}
+
+
+function fallAlien(alien){
 
     let alienTop = parseInt(alien.style.top) || 0;
-    alienTop += 10;
 
-    alien.style.top = alienTop + "px";
+    const fallInterval = setInterval(function(){
+    
+        alienTop += 10;
+        alien.style.top = alienTop + "px";
+
+    if (alienTop > gameScrn.offsetHeight){
+        clearInterval(fallInterval)
+        alien.remove();
+    }
+    }, 300);
 }
 
 
 startBtn.addEventListener("click", startGame);
+
+
+function endGame(){
+    if (alien === gameScrn.offsetHeight)
+}
