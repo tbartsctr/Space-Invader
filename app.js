@@ -1,6 +1,9 @@
 const gameScrn = document.getElementsByClassName("gameScrn")[0];
 const scoreScrn = document.getElementsByClassName("scoreScrn")[0];
 const spaceShip = document.getElementsByClassName("spaceshipImg")[0];
+let gameOver = false;
+let alienIntervals = [];
+let lasers = [];
 
 const moveAmount = 20;
 
@@ -17,6 +20,7 @@ function moveSpaceShip(event){
 } else if (event.key === "ArrowRight"){
     const gameScrnWidth = gameScrn.offsetWidth
     const spaceShipWidth = spaceShip.offsetWidth
+
 
     currentLeft += moveAmount
  
@@ -36,13 +40,28 @@ const alien = document.getElementsByClassName("alienImg")[0];
 
 function startGame(){
 
+    const aliens = document.getElementsByClassName("alienImg");
+    for (let i = aliens.length - 1; i >= 0; i--) {
+        aliens[i].remove();
+    }
+
+    alienIntervals.forEach(interval => clearInterval(interval));
+    alienIntervals = [];
+
+    gameOver = false;
+
     setInterval(createAlien, 2000);
 
 
 }
 
+startBtn.addEventListener("click", startGame);
+
 
 function createAlien() {
+
+    if (gameOver) return;
+
     const alien = document.createElement("img");  
     alien.src = "alien.png";  
     alien.classList.add("alienImg");  
@@ -61,21 +80,38 @@ function fallAlien(alien){
     let alienTop = parseInt(alien.style.top) || 0;
 
     const fallInterval = setInterval(function(){
+
+        if (gameOver) return;
     
         alienTop += 10;
         alien.style.top = alienTop + "px";
 
-    if (alienTop > gameScrn.offsetHeight){
+    if (alienTop >= gameScrn.offsetHeight){
         clearInterval(fallInterval)
         alien.remove();
+
+        endGame();
     }
     }, 300);
+    alienIntervals.push(fallInterval);
 }
 
 
 startBtn.addEventListener("click", startGame);
 
 
-function endGame(){
-    if (alien === gameScrn.offsetHeight)
-}
+function endGame(alienTop){
+
+        alert("Game Over!");
+        gameOver = true;
+
+        const aliens = document.getElementsByClassName("alienImg");
+        
+
+        for (let i = aliens.length - 1; i >= 0; i--){
+            aliens[i].remove()
+        }
+        alienIntervals.forEach(interval => clearInterval(interval));
+        alienIntervals = []
+    }
+
