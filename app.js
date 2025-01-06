@@ -37,6 +37,7 @@ window.addEventListener("keydown", moveSpaceShip);
 
 let score = 0;
 function scoreCounter(){
+    if (gameOver) return;
     scoreScrn.textContent = `Score: ${score}`;
 }
 
@@ -89,7 +90,7 @@ function moveLaser(laser){
                 clearInterval(laserInterval);
                 score++;
 
-                updateScore();
+                scoreCounter();
                 break;
     }
 
